@@ -1,14 +1,12 @@
 /**
- * The Truman Show - Waldorf Stage Design Application
- * Interactive logic for tabs, stage blueprint, AI gallery, scenes & props.
+ * The Truman Show - Waldorf Stage Design Application (DIY & Black Box Stage Version)
+ * Fast, lightweight, zero-budget student production logic.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   initStageZones();
-  initOrchestraOptions();
   initGalleryModal();
-  initSceneFilters();
   initSceneAccordion();
   initPropsTable();
   initCopyButton();
@@ -43,79 +41,80 @@ function initTabs() {
 }
 
 /* -------------------------------------------------------------
- * 2. STAGE BLUEPRINT INTERACTIVE ZONES
+ * 2. BLACK STAGE BLUEPRINT INTERACTIVE ZONES
  * ------------------------------------------------------------- */
 const zoneDetails = {
-  orchestra: {
-    title: 'מתחם התזמורת החיה (פסנתר, גיטרות, תופים)',
-    badge: 'מיקום אקוסטי ומבני',
+  'compact-band': {
+    title: 'פינת הכלים הקומפקטית והמצומצמת (בשמאל למטה)',
+    badge: 'שטח צפוף וחסכוני במיוחד',
     html: `
-      <p><strong>למה דווקא באגף שמאל הקדמי?</strong></p>
+      <p><strong>איך דוחסים קלידים, 2 גיטרות ותופים לשטח של 1.8 מ' על 1.5 מ'?</strong></p>
       <ul>
-        <li><strong>שמירה על זרימת שחקנים:</strong> המדרגות אל האולם נמצאות בימין. הצבת התזמורת בשמאל מאזנת את המשקל הויזואלי של הבמה ומאפשרת ירידה חופשית לאולם בימין.</li>
-        <li><strong>חיסכון קריטי במאחורי הקלעים:</strong> מאחורי הקלעים צפוף מאוד. אם נשים את התופים והפסנתר במאחורי הקלעים, נאבד את כל מעבר השחקנים. הצבתם בקדמת אגף שמאל משחררת את כל מאחורי הקלעים!</li>
-        <li><strong>סאונד ותיאום:</strong> הנגנים רואים היטב את המתרחש על הבמה ויכולים להגיב מוזיקלית ברגע לקיוויים (למשל ברעמי הסערה, נפילת הפנס, ומוזיקת הפרודיה של כריסטוף).</li>
+        <li><strong>רצפת האולם מתחת לבמה:</strong> הכלים לא עולים לבמה בכלל! הם יושבים בפינה השמאלית על רצפת האולם, צמוד לשולי הבמה. זה שומר על כל הבמה הקטנה פנויה.</li>
+        <li><strong>פסנתר/קלידים:</strong> קלידים חשמליים על סטנד X צמוד לקיר/וילון, תופסים רוחב מינימלי.</li>
+        <li><strong>גיטרות:</strong> סטנד כפול אחד לגיטרות (או גיטרות מונחות על כיסאות תלמידים רגילים של הנגנים).</li>
+        <li><strong>תופים / קחון (Cajon):</strong> מקרבים את הסנר וההיי-האט קרוב לבס, או הכי קומפקטי: מתופף יושב על קחון עץ עם מצילה אחת וסנר קטן.</li>
       </ul>
       <div class="tip-box">
-        <strong>🪵 נגיעה אנתרופוסופית:</strong> נבנה מעקה עץ מעוגל נמוך או בד יוטה מתוח סביב התזמורת עם תאורה חמה עדינה (נורות פחם חמות), כך שהתזמורת נראית כמו "תזמורת אולפן שידור חי" אותנטית.
+        <strong>💡 נורת קליפ לתווים:</strong> נורת קריאה קטנה או נורת לד מוצמדת לעמוד התווים כדי שלא תאיר את הבמה החשוכה.
       </div>
     `
   },
-  backwall: {
-    title: 'קיר אחורי (האזור האדום בסקיצה) + דלת סודית',
-    badge: 'שיא ההצגה וסצנוגרפיה',
+  backcurtain: {
+    title: 'וילון שחור אחורי (הסימון האדום בסקיצה)',
+    badge: 'רקע שחור בסיסי',
     html: `
-      <p><strong>תפקיד הקיר האחורי במחזה:</strong></p>
+      <p><strong>איך מנצלים את הוילון השחור במינימום מאמץ?</strong></p>
       <ul>
-        <li><strong>ציור עננים ושמיים (סגנון ולדורף):</strong> ציור שכבות בצבעי מים רכים (Lazur) של שמיים ועננים חלומיים, שנראה לאורך כל ההצגה כרקע פסטורלי של סיהייבן.</li>
-        <li><strong>הדלת הסודית והמדרגות:</strong> בחלקו הימני של הקיר, חבוי פתח דלת פשוטה בקו אפס עם הקיר. בסצנה האחרונה, טרומן פוגע בקיר, מגלה את הדלת, עולה במדרגות עץ פשוטות ויוצא לעולם האמיתי.</li>
-        <li><strong>מסך הקרנה עליון:</strong> ניתן להשתמש בחלקו העליון להקרנת שקופיות קצרות ("המופע של טרומן", פרסומות מוקלטות, שידור חי).</li>
+        <li><strong>הרקע הניטרלי המושלם:</strong> הוילון השחור מאפשר לכל אלמנט קרטון או צבע בהיר לבלוט בצורה מדהימה תחת תאורת הבמה.</li>
+        <li><strong>תליית ענני קרטון:</strong> עננים מקרטון לבן תלויים על חוטי דיג שקופים שמוצמדים לצינור התאורה או לקליפסים בוילון.</li>
+        <li><strong>סצנת הסיום (הקיר והדלת):</strong> תולים סדין תכלת עם ציור עננים ודלת קרטון לבנה בסיכות ביטחון ישר על הוילון השחור! בסיום ההצגה מפרקים אותם ב-10 שניות.</li>
       </ul>
     `
   },
   center: {
-    title: 'במה מרכזית - שטח משחק ראשי (70%)',
-    badge: 'מרחב גמיש ומודולרי',
+    title: 'במה שחורה אינטימית - שטח משחק עיקרי',
+    badge: 'רצפה שחורה נקייה',
     html: `
-      <p><strong>עקרונות לתנועה מהירה:</strong></p>
+      <p><strong>חוקי תנועה לבמה קטנה:</strong></p>
       <ul>
-        <li><strong>במת עץ נקייה:</strong> שומרים על מרכז הבמה פנוי ללא מבנים מקובעים.</li>
-        <li><strong>כניסה ויציאה ב-10 שניות:</strong> כל אביזר (מיטת טרומן, שולחן המשרד, סירת המפרש) מורכב על גלגלי סיליקון שקטים עם מעצורים.</li>
-        <li><strong>שימוש בבדים וגופים:</strong> המוני העיירה (ניצבים) יוצרים את הצפיפות והאשליה של עיר חיה בתנועה סביב טרומן.</li>
+        <li><strong>אפס עומס:</strong> אין שום רהיט קבוע שעומד על הבמה.</li>
+        <li><strong>כניסה ויציאה ב-5 שניות:</strong> כל אביזר (מזרן, מסגרת מראה, סירת קרטון על גלגלים) מועלה ביד אחת או מגולגל ויוצא ברגע.</li>
+        <li><strong>תאורת ספוטים:</strong> כשהאור ממוקד על טרומן, כל שאר הבמה והקלעים נשארים בחושך מוחלט.</li>
       </ul>
     `
   },
   'wing-left': {
-    title: 'מעבר מאחורי הקלעים - שמאל',
+    title: 'מעבר קלעים שמאל (וילון שחור צר)',
     badge: 'מעבר צר',
     html: `
-      <p><strong>תפעול מעבר שמאל הצר:</strong></p>
+      <p><strong>תפעול מעבר שמאל:</strong></p>
       <ul>
-        <li><strong>אחסון שטוח בלבד:</strong> כאן מחזיקים אלמנטים שעוביים קטן מ-15 ס"מ – מסגרת המראה הפתוחה, בדי גלי הים המקופלים, ושלטים נישאים.</li>
-        <li><strong>כניסת שחקנים אינטימית:</strong> כניסת מריל בבוקר, כניסת סילביה/לורן, וכניסת כריסטוף בתחילת המופע.</li>
+        <li>כניסת שחקנים אינטימית (מריל בבוקר, סילביה/לורן, כריסטוף).</li>
+        <li>הצמדת קרטונים שטוחים לקיר (מסגרת המראה הדקה, שלטי קרטון).</li>
       </ul>
     `
   },
   'wing-right': {
-    title: 'מעבר מאחורי הקלעים - ימין',
-    badge: 'מעבר צר + עמדת עזר',
+    title: 'מעבר קלעים ימין (וילון שחור צר)',
+    badge: 'מעבר צר',
     html: `
-      <p><strong>תפעול מעבר ימין הצר:</strong></p>
+      <p><strong>תפעול מעבר ימין:</strong></p>
       <ul>
-        <li><strong>כניסת סירת המפרש:</strong> החרטום של הסירה (סנטה מריה) נכנס דרך מעבר זה ישירות לקראת קיר השמיים.</li>
-        <li><strong>שולחן אביזרים מהיר:</strong> שולחן צר צמוד לקיר עבור אביזרים אישיים (מגזינים, שישיית בירה, קולפן, רדיו).</li>
+        <li>כניסת סירת הקרטון על כיסא המשרד בשיא ההצגה.</li>
+        <li>שולחן צר צמוד לקיר לאביזרי כיס (מגזין, שישיית פחיות בירה, קולפן, רדיו).</li>
       </ul>
     `
   },
   stairs: {
     title: 'מדרגות אל הקהל (פינה ימנית תחתונה)',
-    badge: 'גשר בין עולמות',
+    badge: 'גשר לאולם',
     html: `
-      <p><strong>שימוש דרמטי במדרגות היורדות לאולם:</strong></p>
+      <p><strong>שימוש במדרגות:</strong></p>
       <ul>
-        <li><strong>טרומן על שפת המזח:</strong> טרומן יושב על המדרגה התחתונה ומביט אל החושך של האולם (המייצג את האוקיינוס והפחד מטביעה).</li>
-        <li><strong>כניסת ניצבים ועוברי אורח:</strong> שחקנים מגיעים לעיתים מתוך האולם ועולים במדרגות, מה שמגביר את תחושת הריאליטי וההשתתפות של הקהל.</li>
-        <li><strong>איזון מרחבי:</strong> כשהמדרגות בימין והתזמורת בשמאל, כל החזית של הבמה מנוצלת בהרמוניה מושלמת.</li>
+        <li>טרומן יושב על המדרגה התחתונה ומביט אל החושך של האולם (המזח והים).</li>
+        <li>ניצבים ועוברי אורח עולים מהאולם וחוצים את הבמה.</li>
+        <li>נשארות פנויות לחלוטין מכבלים וציוד!</li>
       </ul>
     `
   }
@@ -135,7 +134,6 @@ function initStageZones() {
         badgeEl.textContent = zoneDetails[zoneKey].badge;
         bodyEl.innerHTML = zoneDetails[zoneKey].html;
 
-        // highlight selected zone
         zones.forEach(z => z.style.outline = 'none');
         zone.style.outline = '3px solid #f8b449';
       }
@@ -144,33 +142,7 @@ function initStageZones() {
 }
 
 /* -------------------------------------------------------------
- * 3. ORCHESTRA 3-OPTION TOGGLES
- * ------------------------------------------------------------- */
-const orchOptionsText = {
-  1: `<strong>חלופה א׳ (מומלצת ביותר):</strong> תופסת אפס שטח ממשטח הבמה! הפסנתר, הגיטרות ומערכת התופים יושבים על רצפת האולם משמאל לבמה, מתחת למפלס השחקנים. הקהל נהנה מסאונד חי ומקצועי, ומאחורי הקלעים נשאר 100% פנוי למעבר שחקנים.`,
-  2: `<strong>חלופה ב׳ (במה מוגבהת באגף שמאל האחורי):</strong> התזמורת יושבת על במה קטנה בפינה השמאלית האחורית, כחלק מ"אולפן הטלוויזיה של כריסטוף". יתרון: מראה ויזואלי מהפנט של להקת אולפן שידור חי. חסרון: תופס שטח יקר ליד מעבר הקלעים השמאלי.`,
-  3: `<strong>חלופה ג׳ (בפיט מרכזי מתחת לקו הבמה):</strong> התזמורת ממוקמת בשורה הראשונה של האולם לפני קדמת הבמה. יתרון: פיזור סאונד אקוסטי אחיד לכל הקהל. חסרון: דורש חסימה של 1-2 שורות מושבים קדמיות באולם.`
-};
-
-function initOrchestraOptions() {
-  const btns = document.querySelectorAll('.opt-btn');
-  const expEl = document.getElementById('optExplanation');
-
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const optNum = btn.getAttribute('data-opt');
-      if (orchOptionsText[optNum]) {
-        expEl.innerHTML = orchOptionsText[optNum];
-      }
-    });
-  });
-}
-
-/* -------------------------------------------------------------
- * 4. AI GALLERY & LIGHTBOX MODAL
+ * 3. AI GALLERY & LIGHTBOX MODAL
  * ------------------------------------------------------------- */
 function initGalleryModal() {
   const modal = document.getElementById('imageModal');
@@ -207,32 +179,7 @@ function initGalleryModal() {
 }
 
 /* -------------------------------------------------------------
- * 5. SCENE FILTERS
- * ------------------------------------------------------------- */
-function initSceneFilters() {
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const sceneItems = document.querySelectorAll('.scene-item');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filter = btn.getAttribute('data-filter');
-
-      sceneItems.forEach(item => {
-        if (filter === 'all' || item.getAttribute('data-act') === filter) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    });
-  });
-}
-
-/* -------------------------------------------------------------
- * 6. SCENE ACCORDION TOGGLE
+ * 4. SCENE ACCORDION TOGGLE
  * ------------------------------------------------------------- */
 function initSceneAccordion() {
   const headers = document.querySelectorAll('.scene-header');
@@ -249,42 +196,38 @@ function initSceneAccordion() {
 }
 
 /* -------------------------------------------------------------
- * 7. PROPS TABLE & CHECKLIST
+ * 5. DIY PROPS TABLE & CHECKLIST (ZERO BUDGET)
  * ------------------------------------------------------------- */
-const defaultProps = [
-  { id: 1, name: 'שלט מואר "שידור חי" / "המופע של טרומן"', scene: 'פרולוג + תמונה 1', notes: 'קופסת עץ עם חזית פרספקס מוארת בלד', status: 'inprogress', checked: false },
-  { id: 2, name: 'מסגרת מראה פתוחה ללא זכוכית', scene: 'תמונה 1', notes: 'מסגרת עץ טבעי על מעמד דק קל משקל', status: 'done', checked: true },
-  { id: 3, name: 'מיטת טרומן על גלגלים שקטים', scene: 'תמונה 1', notes: 'רוחב 90 ס"מ, גלגלי סיליקון עם מעצור רגל', status: 'done', checked: true },
-  { id: 4, name: 'שלט קרטון מתחלף "יום 10,909"', scene: 'תמונה 1', notes: 'קרטון אפור כבד עם כיתוב אותיות שבלונה', status: 'done', checked: true },
-  { id: 5, name: 'פנס נופל מהשמיים (חוט דיג וגלגלת)', scene: 'תמונה 1', notes: 'פנס תיאטרון מקרטון/פלסטיק בטוח לנפילה', status: 'inprogress', checked: false },
-  { id: 6, name: 'מגזין "ההוא!" (Now!) ועיתון יומי', scene: 'תמונה 1, 4', notes: 'שער מודפס על מגזין קיים עם כותרת מוגדלת', status: 'todo', checked: false },
-  { id: 7, name: 'מגאפון לשוטר', scene: 'תמונה 1', notes: 'מגאפון וינטג׳ ידני', status: 'todo', checked: false },
-  { id: 8, name: 'שולחן משרדי מתקפל, טלפון חוגה וקלסרים', scene: 'תמונה 2', notes: 'שולחן קל מתקפל, טלפון חוגה שחור ישן', status: 'inprogress', checked: false },
-  { id: 9, name: 'שלט "מעבורת להארבור איילנד" + חבל מזח', scene: 'תמונה 2', notes: 'שלט עץ שרוף/מצויר תלוי על מוט', status: 'todo', checked: false },
-  { id: 10, name: 'שישיית פחיות בירה + כדור/מקל', scene: 'תמונה 3', notes: 'פחיות מתכת ריקות באריזת קרטון', status: 'done', checked: true },
-  { id: 11, name: 'סוודר אדום של סילביה וסיכת "איך זה ייגמר?"', scene: 'תמונה 6', notes: 'סוודר צמר אדום בוהק, סיכה מודפסת גדולה', status: 'done', checked: true },
-  { id: 12, name: 'שני פנסי רכב מסנוורים בידי שחקנים', scene: 'תמונה 6', notes: 'פנסי לד עוצמתיים עם סוללות עצמאיות', status: 'inprogress', checked: false },
-  { id: 13, name: 'פרגוד בית חולים לבן נייד + חלוקי רופאים', scene: 'תמונה 7', notes: 'מסגרת בד לבנה ניידת + 2 חלוקים ומסכות', status: 'todo', checked: false },
-  { id: 14, name: 'פוסטר סוכנות נסיעות (מטוס פוגע בברק)', scene: 'תמונה 9', notes: 'פוסטר קומי מוגדל ומודפס על קאפה', status: 'inprogress', checked: false },
-  { id: 15, name: 'שלט "סכנה - תחנת כוח גרעינית סיהייבן"', scene: 'תמונה 10', notes: 'שלט צהוב זוהר + חליפות מגן ומסכות עשן', status: 'todo', checked: false },
-  { id: 16, name: 'קולפן ירקות רב-תכליתי (פרסומת מריל)', scene: 'תמונה 10', notes: 'קולפן עם קופסה צבעונית מוגזמת', status: 'done', checked: true },
-  { id: 17, name: 'חרטום סירת המפרש "סנטה מריה" על גלגלים', scene: 'תמונה 12-14', notes: 'מבנה עץ קל, תורן חבלים, הגה עץ קטן', status: 'inprogress', checked: false },
-  { id: 18, name: 'יריעות משי כחולות לגלי הסערה', scene: 'תמונה 13-14', notes: '2 יריעות משי/אורגנזה באורך 5 מטר כל אחת', status: 'todo', checked: false },
-  { id: 19, name: 'קיר שמיים אחורי עם דלת ומדרגות עץ', scene: 'תמונה 14', notes: 'קיר עננים מצויר, דלת לבנה בקו אפס ומדרגות יציבות', status: 'inprogress', checked: false }
+const defaultPropsDIY = [
+  { id: 1, name: 'סירת מפרש "סנטה מריה" על גלגלים', scene: 'תמונה 12-14', notes: 'כיסא משרדי ישן + קרטון מקרר חתוך לצורת סירה ומקל מטאטא', status: 'inprogress', checked: false },
+  { id: 2, name: '2 סדיני תכלת לגלי הים', scene: 'תמונה 13-14', notes: 'סדינים ישנים מהבית שמנופפים בהם 2 תלמידים', status: 'todo', checked: false },
+  { id: 3, name: 'סדין שמיים תכול + דלת קרטון נפתחת', scene: 'תמונה 14', notes: 'סדין צבוע בעננים תלוי על הוילון השחור בסיכות ביטחון + דלת קרטון', status: 'inprogress', checked: false },
+  { id: 4, name: 'שרפרף עץ פשוט של כיתה', scene: 'תמונה 14', notes: 'מדרגות אל דלת הקרטון בקיר השמיים (לקחת מכיתה)', status: 'done', checked: true },
+  { id: 5, name: 'מסגרת מראה ריקה מעץ (ללא זכוכית)', scene: 'תמונה 1', notes: '4 קרשים פשוטים או מסגרת ישנה על רגלית עץ', status: 'done', checked: true },
+  { id: 6, name: 'מזרן פשוט של בית ספר', scene: 'תמונה 1', notes: 'מזרן התעמלות/שינה מונח על 2 ארגזים, מפונה בשנייה', status: 'done', checked: true },
+  { id: 7, name: 'פנס נופל מהשמיים על חוט דיג', scene: 'תמונה 1', notes: 'קופסת נעליים צבועה שחור עם חוט דיג שיורד מצינור התאורה', status: 'inprogress', checked: false },
+  { id: 8, name: 'שלט קרטון מתחלף "יום 10,909"', scene: 'תמונה 1', notes: 'קרטון קורנפלקס/משלוח צבוע בטוש שחור עבה', status: 'done', checked: true },
+  { id: 9, name: 'חזית בית צהובה מקרטון על רגלי לייסט', scene: 'תמונה 1, 4', notes: 'קרטון מקרר צבוע בצהוב פסטל עם חלון וגדר לבנה', status: 'inprogress', checked: false },
+  { id: 10, name: 'שולחן תלמיד, טלפון ישן וקלסר', scene: 'תמונה 2', notes: 'שולחן וכיסא מכיתה, טלפון חוגה מבית סבא/סבתא', status: 'inprogress', checked: false },
+  { id: 11, name: 'שלט קרטון "מעבורת להארבור איילנד"', scene: 'תמונה 2', notes: 'קרטון מחובר למקל מטאטא', status: 'todo', checked: false },
+  { id: 12, name: 'שישיית פחיות בירה ריקות + כדור', scene: 'תמונה 3', notes: 'פחיות שתייה ריקות בקרטון + כדור גולף או טניס', status: 'done', checked: true },
+  { id: 13, name: 'סוודר אדום בוהק וסיכת "איך זה ייגמר?"', scene: 'תמונה 6', notes: 'סוודר מהארון בבית וסיכת קרטון עגולה עם סיכת ביטחון', status: 'done', checked: true },
+  { id: 14, name: '2 פנסי יד/אופניים חזקים (מכונית האב)', scene: 'תמונה 6', notes: 'פנסי לד מסנוורים ששחקנים מחזיקים מהקלעים + צפצפה', status: 'inprogress', checked: false },
+  { id: 15, name: '2 סרבלי נייר לבנים ומסכות אבק (כור גרעיני)', scene: 'תמונה 10', notes: 'סרבלי צבעים ב-10 ש"ח מטמבור ומסכות קורונה', status: 'todo', checked: false },
+  { id: 16, name: 'קולפן ירקות וקופסה צבעונית (פרסומת)', scene: 'תמונה 10', notes: 'קולפן מהמטבח בבית', status: 'done', checked: true },
+  { id: 17, name: 'שלט קרטון זוהר "המופע של טרומן"', scene: 'פרולוג', notes: 'קרטון עם כיתוב מודגש בטוש זוהר/צבע זוהר', status: 'inprogress', checked: false }
 ];
 
-let propsData = JSON.parse(localStorage.getItem('truman_props_data')) || defaultProps;
+let propsDataDIY = JSON.parse(localStorage.getItem('truman_diy_props')) || defaultPropsDIY;
 
 function initPropsTable() {
   renderPropsTable();
 
-  // Search input
   const searchInput = document.getElementById('propSearch');
   searchInput.addEventListener('input', () => {
     filterAndRenderProps();
   });
 
-  // Status buttons
   const statusBtns = document.querySelectorAll('.status-filter');
   statusBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -299,7 +242,7 @@ function filterAndRenderProps() {
   const searchTerm = document.getElementById('propSearch').value.toLowerCase().trim();
   const activeStatus = document.querySelector('.status-filter.active').getAttribute('data-status');
 
-  const filtered = propsData.filter(item => {
+  const filtered = propsDataDIY.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchTerm) ||
                           item.scene.toLowerCase().includes(searchTerm) ||
                           item.notes.toLowerCase().includes(searchTerm);
@@ -319,7 +262,7 @@ function renderPropsRows(items) {
   tbody.innerHTML = '';
 
   if (items.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 2rem; color: #9ca3af;">לא נמצאו רקוויזיטים תואמים</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 2rem; color: #9ca3af;">לא נמצאו פריטים תואמים</td></tr>`;
     return;
   }
 
@@ -343,11 +286,10 @@ function renderPropsRows(items) {
     tbody.appendChild(tr);
   });
 
-  // Attach events
   tbody.querySelectorAll('.prop-check').forEach(chk => {
     chk.addEventListener('change', (e) => {
       const id = parseInt(e.target.getAttribute('data-id'));
-      const item = propsData.find(p => p.id === id);
+      const item = propsDataDIY.find(p => p.id === id);
       if (item) {
         item.checked = e.target.checked;
         if (item.checked) item.status = 'done';
@@ -360,9 +302,8 @@ function renderPropsRows(items) {
   tbody.querySelectorAll('.badge-status').forEach(badge => {
     badge.addEventListener('click', (e) => {
       const id = parseInt(e.target.getAttribute('data-id'));
-      const item = propsData.find(p => p.id === id);
+      const item = propsDataDIY.find(p => p.id === id);
       if (item) {
-        // Cycle status: todo -> inprogress -> done -> todo
         if (item.status === 'todo') item.status = 'inprogress';
         else if (item.status === 'inprogress') {
           item.status = 'done';
@@ -380,19 +321,19 @@ function renderPropsRows(items) {
 
 function getStatusText(status) {
   switch (status) {
-    case 'todo': return '⏳ לביצוע';
-    case 'inprogress': return '🔨 בעבודה';
+    case 'todo': return '📦 לאסוף';
+    case 'inprogress': return '✂️ בהכנה';
     case 'done': return '✅ מוכן';
     default: return status;
   }
 }
 
 function saveProps() {
-  localStorage.setItem('truman_props_data', JSON.stringify(propsData));
+  localStorage.setItem('truman_diy_props', JSON.stringify(propsDataDIY));
 }
 
 /* -------------------------------------------------------------
- * 8. COPY REPO LINK BUTTON
+ * 6. COPY REPO LINK BUTTON
  * ------------------------------------------------------------- */
 function initCopyButton() {
   const btn = document.getElementById('btnCopyRepo');
