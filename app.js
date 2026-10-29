@@ -16,24 +16,24 @@ document.addEventListener('DOMContentLoaded', () => {
  * 1. TABS NAVIGATION
  * ------------------------------------------------------------- */
 function initTabs() {
-  const tabs = document.querySelectorAll('.nav-tab');
-  const contents = document.querySelectorAll('.tab-content');
+  const tabs = document.querySelectorAll('.nav-item');
+  const panes = document.querySelectorAll('.tab-pane');
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const targetId = tab.getAttribute('data-tab');
 
       tabs.forEach(t => t.classList.remove('active'));
-      contents.forEach(c => c.classList.remove('active'));
+      panes.forEach(p => p.classList.remove('active'));
 
       tab.classList.add('active');
-      const targetContent = document.getElementById(targetId);
-      if (targetContent) {
-        targetContent.classList.add('active');
+      const targetPane = document.getElementById(targetId);
+      if (targetPane) {
+        targetPane.classList.add('active');
       }
 
       window.scrollTo({
-        top: document.querySelector('.main-nav').offsetTop - 10,
+        top: document.querySelector('.nav-bar').offsetTop - 10,
         behavior: 'smooth'
       });
     });
@@ -44,22 +44,19 @@ function initTabs() {
  * 2. STAGE BLUEPRINT INTERACTIVE ZONES
  * ------------------------------------------------------------- */
 const zoneDetails = {
-  'compact-band': {
+  'piano': {
     title: 'פסנתר/קלידים בלבד על הרצפה משמאל',
     badge: 'הקהל קרוב מדי לבמה',
     html: `
       <p><strong>למה רק הפסנתר יושב על הקרקע?</strong></p>
       <ul>
         <li><strong>מרחק אפסי מהקהל:</strong> כפי שרואים בצילום האולם, שורת המושבים הראשונה יושבת ממש מטר וחצי מחזית הבמה. אין שם מקום ללהקה שלמה.</li>
-        <li><strong>מיקום הפסנתר/קלידים:</strong> בפינה השמאלית ביותר על רצפת האולם, צמוד לדופן הבמה, מחוץ למעבר המרכזי.</li>
-        <li><strong>הגיטרות והתופים:</strong> יושבים בתוך כנף הבמה השמאלית (Left Wing) מאחורי קו הוילון השחור. הם שומעים מעולה, מחוברים למערכת ההגברה (PA), ולא מפריעים לא לקהל ולא למשחק.</li>
+        <li><strong>מיקום הפסנתר/קלידים:</strong> בפינה השמאלית ביותר על רצפת האולם, צמוד לדופן הבמה, מחוץ לשורת המעבר.</li>
+        <li><strong>הגיטרות והתופים:</strong> יושבים בתוך כנף הבמה השמאלית (Left Wing) מאחורי קו הוילון השחור. הם מחוברים למערכת ההגברה (PA), ולא מפריעים לקהל או למשחק.</li>
       </ul>
-      <div class="tip-box-light">
-        <strong>🥁 פתרון לתופים בכנף:</strong> קחון (Cajon) עץ אקוסטי או סט תופים אלקטרוני קומפקטי שמחובר ישירות לרמקולים של האולם עם שליטה בווליום.
-      </div>
     `
   },
-  backcurtain: {
+  'back': {
     title: 'וילון שחור אחורי ומסך הקרנה של האולם',
     badge: 'גב הבמה',
     html: `
@@ -67,11 +64,11 @@ const zoneDetails = {
       <ul>
         <li>הרקע השחור האחיד שמאפשר לאורות הבמה להבליט את השחקנים ואת חזיתות העץ הצבועות.</li>
         <li>בסצנת הסיום, מעמידים צמוד לוילון את משקוף העץ עם הדלת הלבנה ופנל השמיים.</li>
-        <li>כשטרומן פותח את הדלת – מאחוריה יש חושך אמיתי שמוביל למאחורי הקלעים!</li>
+        <li>כשטרומן פותח את הדלת – מאחוריה יש חושך אמיתי שמוביל אל מאחורי הקלעים!</li>
       </ul>
     `
   },
-  center: {
+  'center-stage': {
     title: 'במת עץ מוגבהת - שטח משחק ראשי',
     badge: '100% פנוי לתנועה',
     html: `
@@ -83,7 +80,7 @@ const zoneDetails = {
       </ul>
     `
   },
-  'wing-left': {
+  'left-wing': {
     title: 'כנף שמאל (מיקום נגני גיטרה ותופים)',
     badge: 'כנף הנגנים',
     html: `
@@ -95,7 +92,7 @@ const zoneDetails = {
       </ul>
     `
   },
-  'wing-right': {
+  'right-wing': {
     title: 'כנף ימין (מעבר שחקנים וכניסת הסירה)',
     badge: 'כנף שחקנים ואביזרים',
     html: `
@@ -106,7 +103,7 @@ const zoneDetails = {
       </ul>
     `
   },
-  stairs: {
+  'stairs': {
     title: 'מדרגות ומעקה מתכת כסוף (פינה ימנית)',
     badge: 'מעבר פתוח לקהל',
     html: `
@@ -121,10 +118,10 @@ const zoneDetails = {
 };
 
 function initStageZones() {
-  const zones = document.querySelectorAll('.zone-item');
-  const titleEl = document.getElementById('zoneInfoTitle');
-  const badgeEl = document.getElementById('zoneInfoBadge');
-  const bodyEl = document.getElementById('zoneInfoBody');
+  const zones = document.querySelectorAll('[data-zone]');
+  const titleEl = document.getElementById('zoneDetailTitle');
+  const badgeEl = document.getElementById('zoneDetailBadge');
+  const contentEl = document.getElementById('zoneDetailContent');
 
   zones.forEach(zone => {
     zone.addEventListener('click', () => {
@@ -132,10 +129,10 @@ function initStageZones() {
       if (zoneDetails[zoneKey]) {
         titleEl.textContent = zoneDetails[zoneKey].title;
         badgeEl.textContent = zoneDetails[zoneKey].badge;
-        bodyEl.innerHTML = zoneDetails[zoneKey].html;
+        contentEl.innerHTML = zoneDetails[zoneKey].html;
 
-        zones.forEach(z => z.style.borderColor = '');
-        zone.style.borderColor = '#d97706';
+        zones.forEach(z => z.style.outline = 'none');
+        zone.style.outline = '3px solid #d97706';
       }
     });
   });
@@ -182,12 +179,12 @@ function initGalleryModal() {
  * 4. SCENE ACCORDION TOGGLE
  * ------------------------------------------------------------- */
 function initSceneAccordion() {
-  const headers = document.querySelectorAll('.scene-header-light');
+  const headers = document.querySelectorAll('.scene-top');
   headers.forEach(header => {
     header.addEventListener('click', () => {
       const body = header.nextElementSibling;
       if (body.style.display === 'none') {
-        body.style.display = 'block';
+        body.style.display = 'grid';
       } else {
         body.style.display = 'none';
       }
@@ -196,7 +193,7 @@ function initSceneAccordion() {
 }
 
 /* -------------------------------------------------------------
- * 5. PROPS TABLE & CHECKLIST (REALISTIC BUDGET)
+ * 5. PROPS TABLE & CHECKLIST
  * ------------------------------------------------------------- */
 const defaultPropsBudget = [
   { id: 1, name: 'סירת מפרש מעץ "סנטה מריה" על 4 גלגלים', scene: 'תמונה 12-14', notes: 'בסיס סנדוויץ 17 מ"מ, דפנות דיקט מכופף, 4 גלגלי סיליקון מטמבור, תורן עץ', status: 'inprogress', checked: false },
@@ -216,20 +213,22 @@ const defaultPropsBudget = [
   { id: 15, name: 'קולפן ירקות וקופסה צבעונית (פרסומת)', scene: 'תמונה 10', notes: 'קולפן מהמטבח בבית', status: 'done', checked: true }
 ];
 
-let propsDataBudget = JSON.parse(localStorage.getItem('truman_budget_props')) || defaultPropsBudget;
+let propsDataBudget = JSON.parse(localStorage.getItem('truman_budget_props_v2')) || defaultPropsBudget;
 
 function initPropsTable() {
   renderPropsTable();
 
   const searchInput = document.getElementById('propSearch');
-  searchInput.addEventListener('input', () => {
-    filterAndRenderProps();
-  });
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      filterAndRenderProps();
+    });
+  }
 
-  const statusBtns = document.querySelectorAll('.status-filter-light');
-  statusBtns.forEach(btn => {
+  const filterPills = document.querySelectorAll('.filter-pill');
+  filterPills.forEach(btn => {
     btn.addEventListener('click', () => {
-      statusBtns.forEach(b => b.classList.remove('active'));
+      filterPills.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       filterAndRenderProps();
     });
@@ -237,8 +236,10 @@ function initPropsTable() {
 }
 
 function filterAndRenderProps() {
-  const searchTerm = document.getElementById('propSearch').value.toLowerCase().trim();
-  const activeStatus = document.querySelector('.status-filter-light.active').getAttribute('data-status');
+  const searchInput = document.getElementById('propSearch');
+  const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+  const activePill = document.querySelector('.filter-pill.active');
+  const activeStatus = activePill ? activePill.getAttribute('data-status') : 'all';
 
   const filtered = propsDataBudget.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchTerm) ||
@@ -257,10 +258,11 @@ function renderPropsTable() {
 
 function renderPropsRows(items) {
   const tbody = document.getElementById('propsTableBody');
+  if (!tbody) return;
   tbody.innerHTML = '';
 
   if (items.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 2rem; color: #6b7280;">לא נמצאו פריטים תואמים</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 2rem; color: #64748b;">לא נמצאו פריטים תואמים</td></tr>`;
     return;
   }
 
@@ -270,11 +272,11 @@ function renderPropsRows(items) {
       <td>
         <input type="checkbox" class="prop-check" data-id="${item.id}" ${item.checked ? 'checked' : ''}>
       </td>
-      <td style="font-weight: 600; color: #111827; ${item.checked ? 'text-decoration: line-through; opacity: 0.6;' : ''}">
+      <td style="font-weight: 700; color: #0f172a; ${item.checked ? 'text-decoration: line-through; opacity: 0.6;' : ''}">
         ${item.name}
       </td>
-      <td><span class="badge" style="font-size: 0.75rem;">${item.scene}</span></td>
-      <td style="color: #4b5563; font-size: 0.85rem;">${item.notes}</td>
+      <td><span class="pill" style="font-size: 0.75rem;">${item.scene}</span></td>
+      <td style="color: #475569; font-size: 0.85rem;">${item.notes}</td>
       <td>
         <span class="badge-status status-${item.status}" data-id="${item.id}" title="לחצו להחלפת סטטוס">
           ${getStatusText(item.status)}
@@ -327,7 +329,7 @@ function getStatusText(status) {
 }
 
 function saveProps() {
-  localStorage.setItem('truman_budget_props', JSON.stringify(propsDataBudget));
+  localStorage.setItem('truman_budget_props_v2', JSON.stringify(propsDataBudget));
 }
 
 /* -------------------------------------------------------------
